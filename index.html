@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour Saïda ❤️</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #ff8fa3, #ff4d6d);
+  overflow: hidden;
+  color: white;
+}
+
+.slide {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.active { display: flex; animation: fade 1s; }
+
+@keyframes fade { from {opacity: 0;} to {opacity: 1;} }
+
+h1 {
+  font-size: 2.2em;
+  text-shadow: 0 0 20px rgba(255,255,255,0.7);
+}
+
+.typing {
+  border-right: 3px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3s steps(40, end), blink .7s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: white }
+}
+
+p {
+  font-size: 1.1em;
+  max-width: 90%;
+  line-height: 1.6em;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  background: white;
+  color: #ff4d6d;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+button:hover { transform: scale(1.1); }
+
+img {
+  width: 80%;
+  max-width: 280px;
+  border-radius: 20px;
+  margin: 15px 0;
+}
+
+.heart {
+  position: fixed;
+  top: -10px;
+  pointer-events: none;
+  animation: fall linear forwards, sway ease-in-out infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) scale(var(--scale));
+    opacity: 0;
+  }
+}
+
+@keyframes sway {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
+  100% { transform: translateX(-40px); }
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  opacity: 0.7;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#noBtn { position: relative; }
+
+.final-name {
+  font-size: 2.5em;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px white; }
+  to { text-shadow: 0 0 30px pink; }
+}
+</style>
+</head>
+<body>
+
+<iframe id="ytplayer" width="0" height="0" src="" frameborder="0" allow="autoplay"></iframe>
+
+<div class="slide active">
+  <h1 class="typing">Saïda ❤️</h1>
+  <p>J’ai fait ce petit site pour toi… prends juste 1 minute ❤️</p>
+  <button onclick="startExperience()">Commencer</button>
+</div>
+
+<div class="slide">
+  <h1>Pourquoi je t’aime 💕</h1>
+  <img src="c:\Users\marco\Downloads\WhatsApp Image 2026-04-24 at 11.47.01 (1).jpeg">
+  <p>Je t’aime pour ta simplicité, ton sourire et cette façon que tu as de rendre tout plus léger.</p>
+  <button onclick="nextSlide()">Suivant</button>
+</div>
+
+<div class="slide">
+  <h1>Ta beauté ✨</h1>
+  <img src="c:\Users\marco\Downloads\WhatsApp Image 2026-04-24 at 11.47.01.jpeg">
+  <p>T’es belle… mais genre vraiment. Et pas que physiquement, t’as un truc en plus.</p>
+  <button onclick="nextSlide()">Suivant</button>
+</div>
+
+<div class="slide">
+  <h1>Nos moments 📸</h1>
+  <img src="c:\Users\marco\Downloads\WhatsApp Image 2026-04-24 at 11.47.00.jpeg">
+  <p>Chaque moment avec toi devient spécial, même les plus simples.</p>
+  <button onclick="nextSlide()">Suivant</button>
+</div>
+
+<div class="slide">
+  <h1>Question importante 😏</h1>
+  <p>Est-ce que toi aussi… tu m’aimes ?</p>
+  <div class="btn-container">
+    <button onclick="loveAccepted()">Oui ❤️</button>
+    <button id="noBtn" onmouseover="moveButton()">Non 😅</button>
+  </div>
+</div>
+
+<div class="slide">
+  <h1 class="final-name">Saïda ❤️</h1>
+  <p>Peu importe où ça nous mène… je suis content que ce soit avec toi 💘</p>
+</div>
+
+<script>
+let index = 0;
+const slides = document.querySelectorAll('.slide');
+
+function startExperience() {
+  document.getElementById('ytplayer').src = "c:\\Users\\marco\\Downloads\\Treehouse.mp3";
+  startHeartRain();
+  generateStars();
+  nextSlide();
+}
+
+function nextSlide() {
+  slides[index].classList.remove('active');
+  index++;
+  slides[index].classList.add('active');
+}
+
+const heartTypes = ['❤️','💖','💕','💘'];
+
+function startHeartRain() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = heartTypes[Math.floor(Math.random()*heartTypes.length)];
+
+    heart.style.left = Math.random() * 100 + 'vw';
+
+    const size = Math.random() * 25 + 10;
+    const scale = Math.random() * 1.5 + 0.5;
+
+    heart.style.fontSize = size + 'px';
+    heart.style.setProperty('--scale', scale);
+
+    const fallDuration = Math.random() * 3 + 4;
+    const swayDuration = Math.random() * 2 + 3;
+
+    heart.style.animationDuration = fallDuration + 's, ' + swayDuration + 's';
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), fallDuration * 1000);
+
+  }, 100);
+}
+
+function generateStars() {
+  for(let i=0;i<60;i++){
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.top = Math.random()*100+'vh';
+    star.style.left = Math.random()*100+'vw';
+    document.body.appendChild(star);
+  }
+}
+
+function moveButton() {
+  const btn = document.getElementById('noBtn');
+  btn.style.position = 'absolute';
+  btn.style.top = Math.random() * 80 + '%';
+  btn.style.left = Math.random() * 80 + '%';
+}
+
+function loveAccepted() {
+  if(navigator.vibrate) navigator.vibrate([100,50,100]);
+  nextSlide();
+}
+</script>
+
+</body>
+</html>
